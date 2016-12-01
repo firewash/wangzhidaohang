@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <title>wangzhidaohang</title>
+    <link href="lib/winjs-4.0.1/css/ui-light.css" rel="stylesheet" />
+    <script src="lib/winjs-4.0.1/js/base.js"></script>
+    <script src="lib/winjs-4.0.1/js/ui.js"></script>
+    <link href="css/default.css" rel="stylesheet" />
+    <script src="js/webview/webview.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body class="win-type-body"> 
+    <header>
+        <span>header</span>
+        <nav id="navStacks">
+            <button id="defaultNav">
+                主页
+            </button>
+        </nav>
+    </header>
+    <div id="appBar" style="height:50px;"
+         data-win-control="WinJS.UI.AppBar"
+         data-win-options="{placement:'top', layout:'commands'}">
+       
+        <button data-win-control="WinJS.UI.AppBarCommand" label="12"></button>
+
+        <button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{id:'secondary1',
+            type:'button',
+            label:'Secondary1',
+            section:'secondary'}"></button>
+        <div data-win-control="WinJS.UI.AppBarCommand"
+             data-win-options="{ id: 'list',
+         type: 'content',
+         label:'List',
+         section: 'secondary'}">
+            <select class="options">
+                <option>Option1</option>
+                <option>Option2</option>
+                <option>Option3</option>
+                <option>Option4</option>
+            </select>
+        </div>
+ 
+        <!--<button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{id:'cmdToggle',
+            type:'toggle',
+            label:'Toggle',
+            icon:'audio',
+            section:'global',
+            tooltip:'Toggle'}"></button>
+        <hr data-win-control="WinJS.UI.AppBarCommand"
+            data-win-options="{id:'separator',
+        type:'separator',
+        section:'global'}" />
+        <button data-win-control="WinJS.UI.AppBarCommand"
+                data-win-options="{id:'helpButton',
+            type: 'button',
+            label:'Help',
+            tooltip:'Help',
+            icon:'help',
+            section:'global'
+            }"></button>-->
+    </div>
+    <div id="mainBody" class="main-body">
+        <div id="viewStacks" class="view-stacks">
+            <x-ms-webview id="defaultView" src="http://localhost/2.html"></x-ms-webview>
+        </div>
+    </div>
+    <footer>
+        footer
+    </footer>
+</body>
+</html>
