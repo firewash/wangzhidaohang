@@ -15,6 +15,7 @@
         let index = pages.length;
         if (!view || !nav) {
             view = document.createElement("x-ms-webview");
+            view.className = "coming";
             nav = document.createElement("button");
             nav.innerHTML = "loading...";
         }
@@ -29,6 +30,7 @@
         view.addEventListener("MSWebViewDOMContentLoaded", e => {
             if (!pinned) {
                 nav.innerHTML = view.documentTitle;
+                view.classList.remove("coming");
             }
             
         });

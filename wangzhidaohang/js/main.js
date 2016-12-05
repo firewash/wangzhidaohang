@@ -5,9 +5,9 @@
 	"use strict";
 
 	var app = WinJS.Application;
+	var nav = WinJS.Navigation;
 	var activation = Windows.ApplicationModel.Activation;
 	var isFirstActivation = true;
-
 	app.onactivated = function (args) {
 		if (args.detail.kind === activation.ActivationKind.voiceCommand) {
 			//TODO: 处理相关的 ActivationKinds。例如，如果你的应用可通过语音命令启动，
@@ -42,6 +42,8 @@
 		}
 
 		isFirstActivation = false;
+
+	    splitmenu.init();
 	};
 
 	function onVisibilityChanged(args) {
@@ -57,5 +59,5 @@
 	};
 
 	app.start();
-
+	 
 })();
