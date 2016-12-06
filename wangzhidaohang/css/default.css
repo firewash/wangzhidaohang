@@ -52,15 +52,18 @@ footer {
 .view-stacks x-ms-webview{
     width:100%;
     height:100%;
-    //border:5px solid red;
     box-shadow:rgba(0,0,0,0.4) 0 0 inset;
     position:absolute;
     left:0;
     top:0;
     box-shadow:0px 0px 0px 0px #000;
     transition: left 0.5s linear, box-shadow 0.5s linear;
+    
 }
 
+    .view-stacks .current{
+        z-index:1;
+    }
 .view-stacks x-ms-webview.coming{
     left:100%;
     box-shadow:0px 0px 10px 0px #000;
@@ -73,8 +76,7 @@ footer {
 
 
 button.splitViewButton {
-    /*position: absolute;*/
-    display:inline-block;
+    position: absolute; 
     height: 48px;
     width: 48px;
     min-height: 0;
@@ -113,11 +115,15 @@ button.splitViewButton {
 
     #header{
         display:inline-block;
+        line-height:48px;
     }
 
 .win-splitview-pane-closed #header,
 .win-splitview-pane-closed #footer {
     display: none;
+}
+.win-splitview-pane-closed .splitViewButton {
+    position:static;
 }
 
 .win-splitview-content .splitViewButton {

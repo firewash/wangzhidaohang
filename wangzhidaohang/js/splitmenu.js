@@ -6,8 +6,9 @@
 
 	var scenarios = [
         { url: "components/webviewx.html", title: "首页" },
+        { url: "http://haha.mx", title: "哈哈" },
         { url: "http://localhost/2.html", title: "2.html" },
-        { url: "http://www.baidu.com", title: "Baidu" },
+        { url: "http://www.baidu.com", title: "省钱" },
 	];
 	var customTitleBarPromise = WinJS.Promise.wrap();
 
@@ -139,18 +140,23 @@
 	    WinJS.Utilities.empty(host);
 	    WinJS.log && WinJS.log("", "", "status");
 
-	    var p = WinJS.UI.Pages.render(url, host, eventObject.detail.state).
-            then(function () {
-                //var navHistory = nav.history;
-                //app.sessionState.navigationHistory = {
-                //    backStack: navHistory.backStack.slice(0),
-                //    forwardStack: navHistory.forwardStack.slice(0),
-                //    current: navHistory.current
-                //};
-                //app.sessionState.lastUrl = url;
-            });
-	    p.done();
-	    eventObject.detail.setPromise(p);
+	    if (/https?:\/\//.test(url)) {
+            host.innerHTML = `<x-ms-webview id="defaultView" src="${url}" style="width:100%;height:100%;"></x-ms-webview>`;
+	    } else {
+            var p = WinJS.UI.Pages.render(url, host, eventObject.detail.state).
+                then(function () {
+                    //var navHistory = nav.history;
+                    //app.sessionState.navigationHistory = {
+                    //    backStack: navHistory.backStack.slice(0),
+                    //    forwardStack: navHistory.forwardStack.slice(0),
+                    //    current: navHistory.current
+                    //};
+                    //app.sessionState.lastUrl = url;
+                });
+	        p.done();
+	        eventObject.detail.setPromise(p);
+	    }
+	    
 	}
 	var nav = WinJS.Navigation;
 	nav.addEventListener("navigating", navigating);

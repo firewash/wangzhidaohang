@@ -2,6 +2,7 @@
     let viewtacks = null;
     let navstacks = null;
     let pages = [];
+    let currentPage = null;
     function init(host) {
         viewstacks = document.getElementById("viewStacks");
         navstacks = document.getElementById("navStacks");
@@ -39,6 +40,9 @@
         nav.addEventListener("click", e => {
             setCurrentPage(index);
         });
+        nav.addEventListener("contextmenu", e => {
+            removePage(index);
+        });
 
         if (src) {
             view.navigate(src);
@@ -51,9 +55,11 @@
             index
         };
         pages.push(page);
+        if (!currentPage) currentPage = page;
         return page;
     }
 
+    //移出一个Tab后所有的Tab
     function removePagesBeginWith(pageIndex) {
         var after = pages.splice(pageIndex);
         for (let i = 0, len = after.length; i < len; i++) {
@@ -63,10 +69,33 @@
         }
     }
 
+    //移出一个tab
+    function removePage(index) {
+        var page = pages.splice(index, 1)[0];
+        if (page) {
+            page.view.remove();
+            page.nav.remove();
+            if (page === currentPage) {
+                setCurrentPage(pages[pages.length-1]);
+            }
+        }
+             
+    }
+
     function setCurrentPage(pageIndex) {
-        var page = pages[pageIndex];
-        page.className = "current";
-        removePagesBeginWith(pageIndex + 1);
+        if (currentPage) {
+            currentPage.view.classList.remove("current");
+            currentPage.nav.classList.remove("current");
+        }
+        
+        currentPage = pages[pageIndex];
+        if (currentPage) {
+            currentPage.view.className = "current";
+            currentPage.nav.className = "current";
+        }
+        
+
+        // removePagesBeginWith(pageIndex + 1); // 有这个想法来节省内存
     }
 
     return {
