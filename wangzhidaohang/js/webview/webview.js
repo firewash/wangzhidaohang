@@ -2,7 +2,7 @@
     let viewtacks = null;
     let navstacks = null;
     let pages = [];
-    function init() {
+    function init(host) {
         viewstacks = document.getElementById("viewStacks");
         navstacks = document.getElementById("navStacks");
     }
@@ -20,7 +20,8 @@
             nav.innerHTML = "loading...";
         }
 
-        view.addEventListener("MSWebViewNewWindowRequested", e => { // NewWindowRequested
+        view.addEventListener("MSWebViewNewWindowRequested", e => {
+            console.log("NewWindowRequested");
             this.addPage({ src: e.uri });
             e.preventDefault();
         });
@@ -75,11 +76,17 @@
 })();
 
 window.onload = function () {
-    PageManager.init();
-    PageManager.addPage({
-        view: document.getElementById("defaultView"),
-        nav: document.getElementById("defaultNav"),
-        pinned: true
+    WinJS.UI.Pages.define("/components/webviewx.html", {
+        ready: function (element, options) {
+            PageManager.init({
+                host: document.getElementById("MyWebviewx")
+            });
+            PageManager.addPage({
+                view: document.getElementById("defaultView"), // optional
+                nav: document.getElementById("defaultNav"),// optional
+                pinned: true
+            });
+        }
     });
+   
 };
-WinJS.UI.Pages

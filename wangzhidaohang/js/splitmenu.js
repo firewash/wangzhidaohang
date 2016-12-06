@@ -5,7 +5,8 @@
 	});
 
 	var scenarios = [
-        { url: "http://localhost/2.html", title: "收藏11" },
+        { url: "components/webviewx.html", title: "首页" },
+        { url: "http://localhost/2.html", title: "2.html" },
         { url: "http://www.baidu.com", title: "Baidu" },
 	];
 	var customTitleBarPromise = WinJS.Promise.wrap();
@@ -37,7 +38,7 @@
 	}
 
 	WinJS.Namespace.define("SdkSample", {
-	    sampleTitle: "Title bar",
+	    sampleTitle: "UC123Plus",
 	    scenarios: new WinJS.Binding.List(scenarios),
 	    addCustomTitleBar: addCustomTitleBar,
 	    removeCustomTitleBar: removeCustomTitleBar,
@@ -95,7 +96,7 @@
 	    splitView.onafterclose = function () { WinJS.Utilities.removeClass(splitView.element, "hiding"); };
 	    function handleResize() {
 	        if (window.innerWidth > 768) {
-	            splitView.closedDisplayMode = WinJS.UI.SplitView.ClosedDisplayMode.none;
+	            splitView.closedDisplayMode = WinJS.UI.SplitView.ClosedDisplayMode.inline; //none
 	            splitView.openedDisplayMode = WinJS.UI.SplitView.OpenedDisplayMode.inline;
 	        } else {
 	            splitView.closedDisplayMode = WinJS.UI.SplitView.ClosedDisplayMode.none;
@@ -113,6 +114,10 @@
 	    for (var i = 0, len = buttons.length; i < len; i++) {
 	        buttons[i].addEventListener("click", handleSplitViewButton);
 	    }
+	    // default select 
+	    var url = SdkSample.scenarios.getAt(0).url;
+	    nav.navigate(url, {});
+
 	}
 
     // init navigating 

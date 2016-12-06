@@ -1,5 +1,4 @@
-﻿body {
-    display:flex;
+﻿body { 
     flex-direction:column
 }
 
@@ -8,21 +7,7 @@ header {
     
 }
 
-nav {
-    display:inline-block;
-}
-nav button {
-    max-width:100px;
-    height:30px;
-    line-height:30px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    padding:0 2px;
-}
-    nav .current {
-        background:#ffd800;
-    }
+
 
 footer {
     height:20px;
@@ -32,15 +17,43 @@ footer {
     flex:1;
 }
 
+.webviewx {
+    display:flex;
+    flex-direction:column;
+    height:100%;
+}
+
+.webviewx nav {
+    display:inline-block;
+    height:48px;
+}
+.webviewx nav button {
+    max-width:100px;
+    height:30px;
+    line-height:30px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin:1px;
+    padding:0 20px 0 0 ;
+    background: rgba(160,160,160,1)  url(../images/more.svg) right center no-repeat;
+    background-size: 20px 20px;
+    border:none;
+}
+    .webviewx nav .current {
+        background:#ffd800;
+    }
+
 .view-stacks {
-    //position:relative;
-    //height:100%;
+    position:relative;
+    flex:1;
 }
 
 .view-stacks x-ms-webview{
-    //width:100%;
-    //height:100%;
-    border:5px solid red;
+    width:100%;
+    height:100%;
+    //border:5px solid red;
+    box-shadow:rgba(0,0,0,0.4) 0 0 inset;
     position:absolute;
     left:0;
     top:0;
@@ -60,7 +73,8 @@ footer {
 
 
 button.splitViewButton {
-    position: absolute;
+    /*position: absolute;*/
+    display:inline-block;
     height: 48px;
     width: 48px;
     min-height: 0;
@@ -69,9 +83,7 @@ button.splitViewButton {
     border: none;
     margin: 0;
     background-color: transparent;
-    border:5px solid red;
     z-index:10;
-
 }
 
     button.splitViewButton:hover {
@@ -92,10 +104,15 @@ button.splitViewButton {
 .win-splitview-pane {
     display: flex;
     flex-direction: column;
+    box-shadow:#ffd800 0 0 ;
 }
 
     .win-splitview-pane #scenarioPane {
         flex-grow: 1;
+    }
+
+    #header{
+        display:inline-block;
     }
 
 .win-splitview-pane-closed #header,
