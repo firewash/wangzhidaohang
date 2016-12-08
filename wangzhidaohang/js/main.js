@@ -11,7 +11,8 @@
 	app.onactivated = function (args) {
 		if (args.detail.kind === activation.ActivationKind.voiceCommand) {
 			//TODO: 处理相关的 ActivationKinds。例如，如果你的应用可通过语音命令启动，
-			//这是确定是否填充输入字段或选择其他初始视图的好时机。
+		    //这是确定是否填充输入字段或选择其他初始视图的好时机。
+		    onActiveByVoiceCommandHandler(args.detail);
 		}
 		else if (args.detail.kind === activation.ActivationKind.launch) {
 			//当用户通过磁贴启动应用时，会发生“启动”激活。
@@ -43,7 +44,8 @@
 
 		isFirstActivation = false;
 
-	    splitmenu.init();
+		splitmenu.init();
+		vcdInit();
 	};
 
 	function onVisibilityChanged(args) {
@@ -61,3 +63,33 @@
 	app.start();
 	 
 })();
+
+//Cortana相关逻辑
+function vcdInit() {
+    //Windows.ApplicationModel.Package.current.installedLocation.getFileAsync("VoiceCommandDefinition.xml")
+    var uri = new Windows.Foundation.Uri("ms-appx:///VoiceCommandDefinition.xml");
+    var voiceCommandManager = Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager;
+    Windows.ApplicationModel.Package.current.installedLocation.getFileAsync("VoiceCommandDefinition.xml").then(function (file) {
+        return voiceCommandManager.installCommandDefinitionsFromStorageFileAsync(file);
+    }).then(function (res) {
+        var language = window.navigator.userLanguage || window.navigator.language;
+        var commandSetName = "UniversalAppCommandSet_" + language.toLowerCase();
+        if (voiceCommandManager.installedCommandDefinitions.hasKey(commandSetName)) {
+            var vcd = voiceCommandManager.installedCommandDefinitions.lookup(commandSetName);
+            console.log(vcd);
+        } else {
+            WinJS.log && WinJS.log("VCD not installed yet?", "", "warning");
+        }
+    });
+
+}
+
+function onActiveByVoiceCommandHandler(detail) {
+    var result = detail.result;
+    console.log("you say:", result.text);
+    switch (result.text) {
+        case "呵呵":
+            WinJS.Navigation.navigate("http://haha.mx");
+            break
+    }
+}

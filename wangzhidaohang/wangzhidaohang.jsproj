@@ -85,6 +85,7 @@
     <Content Include="lib\winjs-4.0.1\css\ui-dark.css" />
     <Content Include="lib\winjs-4.0.1\fonts\Symbols.ttf" />
     <Content Include="page.html" />
+    <Content Include="VoiceCommandDefinition.xml" />
     <None Include="wangzhidaohang_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />

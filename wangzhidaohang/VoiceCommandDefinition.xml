@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="en-us" Name="UniversalAppCommandSet_en-us">
+    <CommandPrefix> Universal Messenger, </CommandPrefix>
+    <Example> Text Sam “Hello World" </Example>
+    <Command Name="showConversation">
+      <Example>  show my conversation with sam  </Example>
+      <ListenFor > show [my] conversation with {user} </ListenFor>
+      <Feedback> Showing conversation with {user} </Feedback>
+      <Navigate/>
+    </Command>
+    <PhraseList Label="user">
+      <Item>Sam</Item>
+      <Item>John</Item>
+    </PhraseList>
+  </CommandSet>
+  
+  <CommandSet xml:lang="zh-CN" Name="UniversalAppCommandSet_zh-cn">
+    <CommandPrefix>网址导航</CommandPrefix>
+    <Example> 你好啊 </Example>
+    <Command Name="showConversation">
+      <Example>呵呵</Example>
+      <ListenFor>呵呵</ListenFor>
+      <Feedback>听到呵呵了</Feedback>
+      <Navigate/>
+    </Command>
+  </CommandSet>
+
+</VoiceCommands>

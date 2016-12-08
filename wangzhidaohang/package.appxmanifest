@@ -3,8 +3,8 @@
   <Identity Name="7b8d96cd-f7e3-42b9-8f2c-217adbb9f70e" Version="1.0.0.0" Publisher="CN=admin" />
   <mp:PhoneIdentity PhoneProductId="7b8d96cd-f7e3-42b9-8f2c-217adbb9f70e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>wangzhidaohang</DisplayName>
-    <PublisherDisplayName>admin</PublisherDisplayName>
+    <DisplayName>UC123Plus</DisplayName>
+    <PublisherDisplayName>wangle</PublisherDisplayName>
     <Logo>images\storelogo.png</Logo>
   </Properties>
   <Dependencies>
