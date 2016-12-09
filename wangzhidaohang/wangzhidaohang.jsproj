@@ -61,6 +61,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="components\help.html" />
     <Content Include="components\splitmenu_header.html" />
     <Content Include="components\splitmenu_select.html" />
     <Content Include="components\webviewx.html" />

@@ -40,12 +40,11 @@
 			//TODO: 应用已激活但未运行。请在此处执行常规启动初始化。
 			document.addEventListener("visibilitychange", onVisibilityChanged);
 			args.setPromise(WinJS.UI.processAll());
+			splitmenu.init();
+			vcdInit();
 		}
 
 		isFirstActivation = false;
-
-		splitmenu.init();
-		vcdInit();
 	};
 
 	function onVisibilityChanged(args) {
@@ -59,9 +58,8 @@
 		//你可以使用 WinJS.Application.sessionState 对象，该对象在挂起中会自动保存和还原。
 		//如果需要在应用程序被挂起之前完成异步操作，请调用 args.setPromise()。
 	};
-
+ 
 	app.start();
-	 
 })();
 
 //Cortana相关逻辑
@@ -86,10 +84,20 @@ function vcdInit() {
 
 function onActiveByVoiceCommandHandler(detail) {
     var result = detail.result;
-    console.log("you say:", result.text);
-    switch (result.text) {
-        case "呵呵":
-            WinJS.Navigation.navigate("http://haha.mx");
-            break
+    routeHazily(detail.result.text);
+}
+
+function routeHazily(text) {
+    if (!text) return;
+    try{
+        SdkSample.scenarios.forEach(function (item, index) {
+            if (item.title && item.title.includes(text) || item.keywords && item.keywords.includes(text)) {
+                var listview = document.getElementById("splitMenuElement").querySelector(".win-listview").winControl;
+                listview.elementFromIndex(index).click();
+            }
+        });
+    } catch (e) {
+        console.log("Error:", e)
     }
+    
 }

@@ -19,8 +19,14 @@
   
   <CommandSet xml:lang="zh-CN" Name="UniversalAppCommandSet_zh-cn">
     <CommandPrefix>网址导航</CommandPrefix>
-    <Example> 你好啊 </Example>
-    <Command Name="showConversation">
+    <Example> 首页 </Example>
+    <Command Name="showHomepage">
+      <Example>首页</Example>
+      <ListenFor>首页</ListenFor>
+      <Feedback>听到首页了</Feedback>
+      <Navigate/>
+    </Command>
+    <Command Name="showExample">
       <Example>呵呵</Example>
       <ListenFor>呵呵</ListenFor>
       <Feedback>听到呵呵了</Feedback>

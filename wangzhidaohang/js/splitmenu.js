@@ -5,10 +5,11 @@
 	});
 
 	var scenarios = [
-        { url: "components/webviewx.html", title: "首页" },
-        { url: "http://haha.mx", title: "哈哈" },
+        { url: "components/webviewx.html", title: "首页", keywords:"首页 主页 第一页 " },
+        { url: "http://haha.mx", title: "哈哈", keywords:"哈哈 呵呵" },
         { url: "http://uwptest.com/2.html", title: "2.html" },  //hosts for 127.0.0.1
         { url: "http://www.baidu.com", title: "省钱" },
+        { url: "components/help.html", title: "帮助" },
 	];
 	var customTitleBarPromise = WinJS.Promise.wrap();
 
