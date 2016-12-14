@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
-    <title>wangzhidaohang</title>
-    <link href="lib/winjs-4.0.1/css/ui-light.css" rel="stylesheet" />
+    <title>网址导航</title>
+    <link href="lib/winjs-4.0.1/css/ui-dark.css" rel="stylesheet" />
     <script src="lib/winjs-4.0.1/js/base.js"></script>
     <script src="lib/winjs-4.0.1/js/ui.js"></script>
     <link href="css/default.css" rel="stylesheet" />
-    <script src="js/webview/webview.js"></script>
+    <script src="js/homeview.js"></script>
     <script src="js/splitmenu.js"></script>
     <script src="js/app_setting.js"></script>
     <script src="js/main.js"></script>
@@ -38,13 +38,12 @@
             </select>
         </div>
     </div>
-    <div id="splitMenuElement" class="main-body" data-win-control="WinJS.UI.SplitView"  data-win-options="{ paneOpened: SdkSample.paneOpenInitially }">
-        <div data-title="left" style="border-right:2px solid blue;box-shadow:inset 0px 0px 10px #ffd800">
-            <button type="button" class="splitViewButton win-button"></button>
-            <div id="header" role="contentinfo" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: 'components/splitmenu_header.html'}">
-                
-            </div>
+    <div id="splitMenuElement" class="main-body" data-win-control="WinJS.UI.SplitView"  data-win-options="{ paneOpened: AppDatas.paneOpenInitially }">
+        <div data-title="left" style="width:220px;">
+            <button type="button" class="splitViewButton squareButton win-button"></button>
+            <div id="header" role="contentinfo" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: 'components/splitmenu_header.html'}"></div>
             <div id="scenarioPane" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: 'components/splitmenu_select.html'}"></div>
+            <div id="footer" role="contentinfo" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: 'components/splitmenu_footer.html'}"></div>
         </div>
         <div id="splitContent" data-title="right" style="height:100%;">
             

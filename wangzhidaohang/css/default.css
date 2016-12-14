@@ -7,11 +7,28 @@ header {
     
 }
 
-
-
 footer {
     height:20px;
 }
+
+button.squareButton{
+    height: 48px;
+    width: 48px;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+    border: none;
+    margin: 0;
+    background-color: transparent;
+}
+ button.squareButton:hover {
+        background-color: rgba(255,255,255, 0.2);
+    }
+
+    button.squareButton:active {
+        background-color: rgba(255,255,255, 0.3);
+    }
+
 
 .main-body {
     flex:1;
@@ -25,23 +42,25 @@ footer {
 
 .webviewx nav {
     display:inline-block;
-    height:48px;
+    height:28px;
 }
 .webviewx nav button {
     max-width:100px;
-    height:30px;
-    line-height:30px;
+    height:20px;
+    line-height:20px;
     white-space:nowrap;
+    border-radius:10px;
     overflow:hidden;
     text-overflow:ellipsis;
-    margin:1px;
-    padding:0 20px 0 0 ;
-    background: rgba(160,160,160,1)  url(../images/more.svg) right center no-repeat;
+    margin:4px 2px;
+    padding:0 20px 0 10px ;
+    font-size:12px;
+    background: rgba(41, 143, 204, 0.8) url(../images/more.svg) right center no-repeat;
     background-size: 20px 20px;
     border:none;
 }
     .webviewx nav .current {
-        background:#ff0000;
+        background-color:rgba(41, 143, 204, 1);
     }
 
 .view-stacks {
@@ -76,25 +95,9 @@ footer {
 
 
 button.splitViewButton {
-    position: absolute; 
-    height: 48px;
-    width: 48px;
-    min-height: 0;
-    min-width: 0;
-    padding: 0;
-    border: none;
-    margin: 0;
-    background-color: transparent;
+    position: absolute;     
     z-index:10;
 }
-
-    button.splitViewButton:hover {
-        background-color: rgba(255,255,255, 0.1);
-    }
-
-    button.splitViewButton:active {
-        background-color: rgba(255,255,255, 0.2);
-    }
 
     button.splitViewButton:after {
         position: relative;
@@ -102,7 +105,10 @@ button.splitViewButton {
         font-family: 'Segoe MDL2 Assets';
         content: "\E700";
     }
-
+   
+.win-splitview.win-splitview-pane-opened.win-splitview-placementleft .win-splitview-pane, .win-splitview.win-splitview-pane-opened.win-splitview-placementright .win-splitview-pane{
+    width:220px;
+}
 .win-splitview-pane {
     display: flex;
     flex-direction: column;
@@ -114,6 +120,10 @@ button.splitViewButton {
     }
 
     #header{
+        display:inline-block;
+        line-height:48px;
+    }
+    #footer{
         display:inline-block;
         line-height:48px;
     }
@@ -133,4 +143,15 @@ button.splitViewButton {
 .hiding .win-splitview-content .splitViewButton,
 .win-splitview-pane-closed .win-splitview-content .splitViewButton {
     display: block;
+}
+
+.helpIcon::before {
+    content: "\E11B";
+}
+.helpIcon {
+    font-family: "Symbols";
+    font-size: 28px;
+    color: #5729c1;
+    width:30px;
+    height:30px;
 }

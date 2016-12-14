@@ -39,9 +39,10 @@
 		if (isFirstActivation) {
 			//TODO: 应用已激活但未运行。请在此处执行常规启动初始化。
 			document.addEventListener("visibilitychange", onVisibilityChanged);
-			args.setPromise(WinJS.UI.processAll());
+			args.setPromise(WinJS.UI.processAll());	// wangle help		 
 			splitmenu.init();
 			vcdInit();
+			setToolbarExtend();
 		}
 
 		isFirstActivation = false;
@@ -52,7 +53,6 @@
 			//TODO: 应用变得可见。这可能是刷新视图的好时机。
 		}
 	}
-
 	app.oncheckpoint = function (args) {
 		// TODO: 此应用程序将被挂起。请在此保存需要挂起中需要保存的任何状态。
 		//你可以使用 WinJS.Application.sessionState 对象，该对象在挂起中会自动保存和还原。
@@ -90,7 +90,7 @@ function onActiveByVoiceCommandHandler(detail) {
 function routeHazily(text) {
     if (!text) return;
     try{
-        SdkSample.scenarios.forEach(function (item, index) {
+        AppDatas.topmenus.forEach(function (item, index) {
             if (item.title && item.title.includes(text) || item.keywords && item.keywords.includes(text)) {
                 var listview = document.getElementById("splitMenuElement").querySelector(".win-listview").winControl;
                 listview.elementFromIndex(index).click();
@@ -100,4 +100,20 @@ function routeHazily(text) {
         console.log("Error:", e)
     }
     
+}
+
+function setToolbarExtend() {return
+    var titleBarHelper = CoreViewHelpers.CoreTitleBarHelper.getForCurrentView();
+    titleBarHelper.extendViewIntoTitleBar = true;
+    var customTitleBarPromise = WinJS.Promise.wrap();
+    customTitleBarPromise = customTitleBarPromise.then(function () {
+        if (!customTitleBar) {
+            var host = document.createElement("div");
+            document.body.insertBefore(host, document.body.childNodes[0]);
+            return WinJS.UI.Pages.render("/components/customTitleBar.html", host).then(function (result) {
+                customTitleBar = result;
+            });
+        }
+    });
+    customTitleBarPromise.done();
 }

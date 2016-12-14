@@ -3,9 +3,6 @@
 <head>
     <title></title>
     <style>
-        /*
-Copyright (c) Microsoft Corporation. All rights reserved
-*/
 
 /* These styles are part of the SDK Sample framework */
 #scenarioControl {
@@ -52,22 +49,29 @@ Copyright (c) Microsoft Corporation. All rights reserved
             width: 48px;
             text-align: center;
         }
-
+        #scenarioControl .scenarioItem .scenarioItemIcon {
+            display: inline-block;
+            width: 48px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <!-- WinJS.Binding.Template for #scenarioControl -->
     <div id="scenarioItem" data-win-control="WinJS.Binding.Template" style="display: none;">
         <div class="scenarioItem" data-win-bind="title: title">
-            <span class="scenarioNumber" data-win-bind="innerText: scenarioNumber"></span>
+            <!--<span class="scenarioNumber" data-win-bind="innerText: scenarioNumber"></span>-->
+            <span class="scenarioItemIcon">
+                <img data-win-bind="src: icon" />
+            </span>
             <span data-win-bind="innerText: title"></span>
-        </div>
+</div>
     </div>
 
     <div id="scenarioControl" class="win-selectionstylefilled"
          data-win-control="WinJS.UI.ListView"
          data-win-options="{
-            itemDataSource: SdkSample.scenarios.dataSource,
+            itemDataSource: AppDatas.topmenus.dataSource,
             itemTemplate: select('#scenarioItem'),
             selectionMode: WinJS.UI.SelectionMode.single,
             tapBehavior: WinJS.UI.TapBehavior.directSelect,

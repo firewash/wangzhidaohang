@@ -61,7 +61,9 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="components\customTitleBar.html" />
     <Content Include="components\help.html" />
+    <Content Include="components\splitmenu_footer.html" />
     <Content Include="components\splitmenu_header.html" />
     <Content Include="components\splitmenu_select.html" />
     <Content Include="components\webviewx.html" />
@@ -76,10 +78,11 @@
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="js\app_setting.js" />
+    <Content Include="js\favoricon.js" />
     <Content Include="js\main.js" />
     <Content Include="css\default.css" />
     <Content Include="js\splitmenu.js" />
-    <Content Include="js\webview\webview.js" />
+    <Content Include="js\homeview.js" />
     <Content Include="lib\winjs-4.0.1\js\base.js" />
     <Content Include="lib\winjs-4.0.1\js\ui.js" />
     <Content Include="lib\winjs-4.0.1\css\ui-light.css" />

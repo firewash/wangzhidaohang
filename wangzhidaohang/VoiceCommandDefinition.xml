@@ -23,15 +23,38 @@
     <Command Name="showHomepage">
       <Example>首页</Example>
       <ListenFor>首页</ListenFor>
-      <Feedback>听到首页了</Feedback>
+      <ListenFor>主页</ListenFor>
+      <Feedback>首页...</Feedback>
       <Navigate/>
     </Command>
-    <Command Name="showExample">
-      <Example>呵呵</Example>
-      <ListenFor>呵呵</ListenFor>
-      <Feedback>听到呵呵了</Feedback>
-      <Navigate/>
+    <Command Name="showHaha">
+      <Example>打开哈哈</Example>
+      <ListenFor>[打开]哈哈</ListenFor>
+      <Feedback>打开哈哈...</Feedback>
+      <Navigate Target="http://haha.mx"/>
     </Command>
+  
+    <Command Name="showHahaTest2"> <!-- 不知为何无效 wangle -->
+      <Example>打开哈哈2</Example>
+      <ListenFor>查看{menu}频道</ListenFor>
+      <Feedback>查看mmm频道...</Feedback>
+      <Navigate Target="http://haha.mx"/>
+    </Command>
+    
+      <Command Name="showHahaTest3"> <!-- 不知为何无效 wangle -->
+      <Example>打开哈哈3</Example>
+      <ListenFor>当当{*}哦</ListenFor>
+      <Feedback>有人说当哦</Feedback>
+      <Navigate Target="http://haha.mx"/>
+    </Command>
+   <PhraseList Label="menu">
+      <Item>主页</Item>
+      <Item>帮助</Item>
+      <Item>哈哈</Item>
+    </PhraseList>
+  
   </CommandSet>
+  
+  
 
 </VoiceCommands>

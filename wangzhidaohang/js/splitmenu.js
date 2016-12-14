@@ -1,16 +1,24 @@
-﻿(function () {
-    //wangle: make sdk sample
-	WinJS.Namespace.define("SdkSample", {
-	    paneOpenInitially: false
-	});
+﻿"use strict";
 
-	var scenarios = [
-        { url: "components/webviewx.html", title: "首页", keywords:"首页 主页 第一页 " },
-        { url: "http://haha.mx", title: "哈哈", keywords:"哈哈 呵呵" },
-        { url: "http://uwptest.com/2.html", title: "2.html" },  //hosts for 127.0.0.1
-        { url: "http://www.baidu.com", title: "省钱" },
-        { url: "components/help.html", title: "帮助" },
-	];
+(function () {
+	const EMPTY_FAVICON = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+    var topmenus = [
+        { url: "components/webviewx.html", title: "首页", icon: "http://g.alicdn.com/browser/uc123_no/0.2.90/index/img/favicon_uc123_yellow.png", keywords: "首页 主页 第一页 " },
+        { url: "http://haha.mx", title: "哈哈", icon: "http://www.haha.mx/favicon.ico", keywords: "哈哈 呵呵" },
+        { url: "http://uwptest.com/2.html", title: "2.html", icon: "", keywords: "" },  //hosts for 127.0.0.1
+        { url: "http://www.baidu.com", title: "省钱", icon: "" },
+        { url: "components/help.html", title: "帮助", icon: EMPTY_FAVICON },
+    ];
+    var topmenusBindList = new WinJS.Binding.List(topmenus);
+    
+	WinJS.Namespace.define("AppDatas", {
+	    appTitle: "UC123Plus",
+	    topmenus: topmenusBindList,
+	    addCustomTitleBar: addCustomTitleBar,
+	    removeCustomTitleBar: removeCustomTitleBar,
+	    paneOpenInitially: true
+	});
+    
 	var customTitleBarPromise = WinJS.Promise.wrap();
 
 	function addCustomTitleBar() {
@@ -39,14 +47,6 @@
 	    return customTitleBarPromise;
 	}
 
-	WinJS.Namespace.define("SdkSample", {
-	    sampleTitle: "UC123Plus",
-	    scenarios: new WinJS.Binding.List(scenarios),
-	    addCustomTitleBar: addCustomTitleBar,
-	    removeCustomTitleBar: removeCustomTitleBar,
-	    paneOpenInitially: true
-	});
-    
     // Init Event
 	WinJS.UI.Pages.define("/components/splitmenu_select.html", {
 	    ready: function (element, options) {
@@ -64,7 +64,7 @@
 	                if (currentScenarioUrl !== newUrl) {
 	                    WinJS.Navigation.navigate(newUrl);
 	                    var splitView = document.querySelector("#splitMenuElement");
-	                    splitView && splitView.winControl.closePane();
+	                    // splitView && splitView.winControl.closePane();
 	                }
 	            });
 	        });
@@ -76,7 +76,7 @@
 	        this._selectedIndex = 0;
 
 	        var lastUrl = WinJS.Application.sessionState.lastUrl;
-	        SdkSample.scenarios.forEach(function (s, index) {
+	        AppDatas.topmenus.forEach(function (s, index) {
 	            s.scenarioNumber = index + 1;
 	            if (s.url === lastUrl && index !== that._selectedIndex) {
 	                that._selectedIndex = index;
@@ -88,11 +88,17 @@
 	        this._listview.currentItem = { index: this._selectedIndex, hasFocus: true };
 	    }
 	});
+
+	WinJS.UI.Pages.define("/components/splitmenu_header.html", {
+	    ready: function (element, options) {
+	        WinJS.Binding.processAll();
+	        
+	    }});
     // End event
 
 	function init() {
 	    //wangle
-	    SdkSample.paneOpenInitially = window.innerWidth > 768;
+	    AppDatas.paneOpenInitially = window.innerWidth > 768;
 	    var splitView = document.querySelector("#splitMenuElement").winControl;
 	    splitView.onbeforeclose = function () { WinJS.Utilities.addClass(splitView.element, "hiding"); };
 	    splitView.onafterclose = function () { WinJS.Utilities.removeClass(splitView.element, "hiding"); };
@@ -117,7 +123,7 @@
 	        buttons[i].addEventListener("click", handleSplitViewButton);
 	    }
 	    // default select 
-	    var url = SdkSample.scenarios.getAt(0).url;
+	    var url = AppDatas.topmenus.getAt(0).url;
 	    nav.navigate(url, {});
 
 	}

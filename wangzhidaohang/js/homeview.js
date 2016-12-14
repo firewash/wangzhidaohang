@@ -47,11 +47,19 @@
             this.addPage({ src: e.uri });           
             e.preventDefault();
         });
+
+        
+        view.addEventListener("MSWebViewNavigationStarting", e => {
+            if (!pinned) {
+                setCurrentPage(index);
+                view.classList.remove("coming");
+            }
+
+        });
         
         view.addEventListener("MSWebViewDOMContentLoaded", e => {
             if (!pinned) {
                 nav.innerHTML = view.documentTitle;
-                view.classList.remove("coming");
             }
             
         });
@@ -59,8 +67,9 @@
         nav.addEventListener("click", e => {
             setCurrentPage(index);
         });
+
         nav.addEventListener("contextmenu", e => {
-            closePage(index);
+            if(!opt.pinned) closePage(index);
         });
 
         if (src) {
@@ -68,6 +77,9 @@
         }
         viewstacks.appendChild(view);
         navstacks.appendChild(nav);
+        setTimeout(() => {
+
+        }, 0);
         
         let page = {
             src,
