@@ -40,11 +40,14 @@ button.squareButton{
     height:100%;
 }
 
-.webviewx nav {
+.webviewx ul {
     display:inline-block;
     height:28px;
+    list-style:none;
+    margin:0;
+    padding:0;
 }
-.webviewx nav button {
+.webviewx ul li {
     max-width:100px;
     height:20px;
     line-height:20px;
@@ -58,8 +61,10 @@ button.squareButton{
     background: rgba(41, 143, 204, 0.8) url(../images/more.svg) right center no-repeat;
     background-size: 20px 20px;
     border:none;
+    display:inline-block;
+    vertical-align:middle;
 }
-    .webviewx nav .current {
+    .webviewx ul .current {
         background-color:rgba(41, 143, 204, 1);
     }
 

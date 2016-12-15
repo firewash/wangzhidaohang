@@ -1,19 +1,10 @@
 ﻿"use strict";
 
 (function () {
-	const EMPTY_FAVICON = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-    var topmenus = [
-        { url: "components/webviewx.html", title: "首页", icon: "http://g.alicdn.com/browser/uc123_no/0.2.90/index/img/favicon_uc123_yellow.png", keywords: "首页 主页 第一页 " },
-        { url: "http://haha.mx", title: "哈哈", icon: "http://www.haha.mx/favicon.ico", keywords: "哈哈 呵呵" },
-        { url: "http://uwptest.com/2.html", title: "2.html", icon: "", keywords: "" },  //hosts for 127.0.0.1
-        { url: "http://www.baidu.com", title: "省钱", icon: "" },
-        { url: "components/help.html", title: "帮助", icon: EMPTY_FAVICON },
-    ];
-    var topmenusBindList = new WinJS.Binding.List(topmenus);
     
 	WinJS.Namespace.define("AppDatas", {
 	    appTitle: "UC123Plus",
-	    topmenus: topmenusBindList,
+	    topmenus: AppManager.favorManager.bindingData,
 	    addCustomTitleBar: addCustomTitleBar,
 	    removeCustomTitleBar: removeCustomTitleBar,
 	    paneOpenInitially: true

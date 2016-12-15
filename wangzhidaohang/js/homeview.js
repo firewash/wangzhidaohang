@@ -38,7 +38,7 @@
         if (!view || !nav) {
             view = document.createElement("x-ms-webview");
             view.className = "coming";
-            nav = document.createElement("button");
+            nav = document.createElement("li");
             nav.innerHTML = "loading...";
         }
 
@@ -54,14 +54,12 @@
                 setCurrentPage(index);
                 view.classList.remove("coming");
             }
-
         });
         
         view.addEventListener("MSWebViewDOMContentLoaded", e => {
             if (!pinned) {
                 nav.innerHTML = view.documentTitle;
-            }
-            
+            }            
         });
 
         nav.addEventListener("click", e => {
@@ -69,7 +67,35 @@
         });
 
         nav.addEventListener("contextmenu", e => {
-            if(!opt.pinned) closePage(index);
+            //if(!opt.pinned) closePage(index);
+            //var menu = document.querySelector('#navMenu');
+            // menu.winControl.show(nav, 'right', 'center');     
+            //var menu = document.querySelector('#navMenu');
+            function onSaveFavor() {
+                AppManager.favorManager.addItem({
+                    url: src,
+                    title:nav.innerText
+                });
+            }
+            function pageToWinRT(pageX, pageY) {
+                var zoomFactor = document.documentElement.msContentZoomFactor;
+                return {
+                    x: (pageX - window.pageXOffset) * zoomFactor,
+                    y: (pageY - window.pageYOffset) * zoomFactor
+                };
+            }
+            var menu = new Windows.UI.Popups.PopupMenu();
+            menu.commands.append(new Windows.UI.Popups.UICommand("添加收藏", onSaveFavor));
+            // We don't want to obscure content, so pass in the position representing the selection area.
+            // We registered command callbacks; no need to handle the menu completion event
+            menu.showAsync(pageToWinRT(e.pageX, e.pageY)).then(function (invokedCommand) {
+                if (invokedCommand === null) {
+                    // The command is null if no command was invoked.
+                    WinJS.log && WinJS.log("Context menu dismissed", "sample", "status");
+                } else {
+                    WinJS.log && WinJS.log("!", e, invokedCommand);
+                }
+            });
         });
 
         if (src) {
@@ -134,7 +160,7 @@
                 break;
             }
         }
-        // closePagesBeginWith(pageIndex + 1); // 有这个想法来节省内存
+        closePagesBeginWith(index + 1); // 有这个想法来节省内存
     }
 
     return {
@@ -154,7 +180,10 @@ window.onload = function () {
                 nav: document.getElementById("defaultNav"),// optional
                 pinned: true
             });
+
+          
+
+            
         }
     });
-   
 };

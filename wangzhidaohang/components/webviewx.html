@@ -8,16 +8,22 @@
     <div id="MyWebviewx" data-title="as-default-page" class="webviewx">
          <!--data-win-control="WinJS.UI.HtmlControl"
          data-win-options="{uri: 'components/webviewx.html'}">-->
-        <nav id="navStacks">
-            <button id="defaultNav">
+        <ul id="navStacks">
+            <li id="defaultNav" >
                 主页
-            </button>
-        </nav>
+            </li>
+        </ul>
         <div id="viewStacks" class="view-stacks">
-            （动态加载）
             <x-ms-webview id="defaultView" src="http://www.uc123.com"></x-ms-webview>
         </div>
     </div>
-   
+    <div id="navMenu" data-win-control="WinJS.UI.Menu">
+        <button data-win-control="WinJS.UI.MenuCommand"
+                data-win-options="{ extraClass: 'delete', label: 'Delete' }"></button>
+        <button data-win-control="WinJS.UI.MenuCommand"
+                data-win-options="{ extraClass: 'undo-delete', label: 'Undo Delete' }"></button>
+        <button data-win-control="WinJS.UI.MenuCommand"
+                data-win-options="{label: '加入收藏' }"></button>
+    </div>
 </body>
 </html>
