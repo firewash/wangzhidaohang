@@ -86,7 +86,6 @@
     <Content Include="css\default.css" />
     <Content Include="js\splitmenu.js" />
     <Content Include="js\homeview.js" />
-    <TypeScriptCompile Include="js\test.ts" />
     <Content Include="lib\winjs-4.0.1\js\base.js" />
     <Content Include="lib\winjs-4.0.1\js\ui.js" />
     <Content Include="lib\winjs-4.0.1\css\ui-light.css" />
