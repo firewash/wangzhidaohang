@@ -35,6 +35,7 @@
         bindingList.push(json);
         favorList.push(json);
         saveDataToStore();
+        //updateFavorIcon(json); // todo
         return json;
     }
     function removeItemByIndex(index) {
@@ -55,6 +56,46 @@
         removeItemByIndex(index);
     }
     
+    function updateItem(index,json) { //todo
+        if (!json.url) return null;
+        json.icon = json.icon || EMPTY_FAVICON;
+        bindingList.push(json);
+        favorList.push(json);
+        saveDataToStore();
+        //updateFavorIcon(json); // todo
+        return json;
+    }
+    
+    //先简单获取页面内的href字符串。todo：网站根目录放置；相对地址；缓存
+    function getFavoriconByPageUrl(pageUrl) {
+        return WinJS.Namespace.xhr({
+             url:pageUrl,
+             responseType: "text" //document
+        }).done(function completed(result) {
+            if (result.status === 200) {
+                 var html = result.text;
+                 var reg = /<link rel="shortcut icon" href="(.)*?>"/g; 
+                 var iconUrl = "";
+                 if(reg.test(html)){
+                 		iconUrl = RegExp.$1;
+                 }
+                 return iconUrl;
+            }
+        }, 
+        function error(result) {
+            // handle error conditions.
+        });
+    }
+    
+    function updateFavorIcon(json){
+    		getFavoriconByPageUrl(json.URL).then(function(iconUrl){
+    				if(iconUrl){
+    					json.icon = iconUrl;
+    					updateItem(json)
+    				}
+    			});
+    	}
+
     var favorManager = {
         addItem,
         removeItem,
