@@ -64,6 +64,36 @@
 	            listview.elementFromIndex(evt.detail.newFocus).click();
 	        });
 
+	        element.addEventListener("contextmenu", function(e){
+                var url = e.target.dataset.url;
+                if (!url) return;
+	            function onRemoveFavor() {
+	                AppManager.favorManager.removeItem({
+	                    url: src,
+	                    title: nav.innerText
+	                });
+	            }
+	            function pageToWinRT(pageX, pageY) {
+	                var zoomFactor = document.documentElement.msContentZoomFactor;
+	                return {
+	                    x: (pageX - window.pageXOffset) * zoomFactor,
+	                    y: (pageY - window.pageYOffset) * zoomFactor
+	                };
+	            }
+	            var menu = new Windows.UI.Popups.PopupMenu();
+	            menu.commands.append(new Windows.UI.Popups.UICommand("移除收藏", onRemoveFavor));
+	            // We don't want to obscure content, so pass in the position representing the selection area.
+	            // We registered command callbacks; no need to handle the menu completion event
+	            menu.showAsync(pageToWinRT(e.pageX, e.pageY)).then(function (invokedCommand) {
+	                if (invokedCommand === null) {
+	                    // The command is null if no command was invoked.
+	                    WinJS.log && WinJS.log("Context menu dismissed", "sample", "status");
+	                } else {
+	                    WinJS.log && WinJS.log("!", e, invokedCommand);
+	                }
+	            });
+	        });
+
 	        this._selectedIndex = 0;
 
 	        var lastUrl = WinJS.Application.sessionState.lastUrl;

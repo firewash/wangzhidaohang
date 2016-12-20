@@ -47,7 +47,6 @@
             this.addPage({ src: e.uri });           
             e.preventDefault();
         });
-
         
         view.addEventListener("MSWebViewNavigationStarting", e => {
             if (!pinned) {

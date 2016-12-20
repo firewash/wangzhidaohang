@@ -42,6 +42,8 @@
         font-size: 14pt;
         padding: 8px 8px 8px 0px;
         white-space: nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
     }
 
         #scenarioControl .scenarioItem .scenarioNumber {
@@ -64,7 +66,7 @@
             <span class="scenarioItemIcon">
                 <img data-win-bind="src: icon" />
             </span>
-            <span data-win-bind="innerText: title"></span>
+            <span data-win-bind="innerText: title; dataset.url: url "></span>
 </div>
     </div>
 
