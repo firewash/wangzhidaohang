@@ -69,7 +69,7 @@
                 if (!url) return;
 	            function onRemoveFavor() {
 	                AppManager.favorManager.removeItem({
-	                    url: src,
+	                    url: url,
 	                    title: nav.innerText
 	                });
 	            }

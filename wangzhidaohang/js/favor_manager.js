@@ -38,14 +38,26 @@
         return json;
     }
     function removeItemByIndex(index) {
-        bindingList.splice(index, 1);
-        faverList.splice(index, 1);
-        saveDataToStore();
+        if (index > -1) {
+            bindingList.splice(index, 1);
+            favorList.splice(index, 1);
+            saveDataToStore();
+        }
+    }
+
+    //先判断url吧
+    function removeItem(opt) {
+        var index = -1;
+        favorList.some((item, i) => {
+            index = i;
+            return opt.url && (opt.url === item.url);
+        });
+        removeItemByIndex(index);
     }
     
     var favorManager = {
         addItem,
-        removeItemByIndex,
+        removeItem,
         bindingData: bindingList
     };
 
