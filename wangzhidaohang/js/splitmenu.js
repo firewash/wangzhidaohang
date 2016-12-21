@@ -65,8 +65,10 @@
 	        });
 
 	        element.addEventListener("contextmenu", function(e){
-                var url = e.target.dataset.url;
-                if (!url) return;
+	            var url = e.target.dataset.url;
+	            var locked = e.target.dataset.locked;
+	            locked = locked === true || locked === "true" || locked === "1" || locked === 1;
+	            if (!url || locked) return;
 	            function onRemoveFavor() {
 	                AppManager.favorManager.removeItem({
 	                    url: url,
@@ -114,7 +116,15 @@
 	    ready: function (element, options) {
 	        WinJS.Binding.processAll();
 	        
-	    }});
+	    }
+	});
+	WinJS.UI.Pages.define("/components/splitmenu_footer.html", {
+	    ready: function (element, options) {
+	        document.querySelector("#helpBtn").onclick = function () {
+	            WinJS.Navigation.navigate("components/help.html");
+	        }
+	    }
+	});
     // End event
 
 	function init() {

@@ -9,6 +9,26 @@
         navstacks = document.getElementById("navStacks");
     }
 
+    function getfaviconUrl(webview) {
+        return new WinJS.Promise(function (resolve) {
+            let asyncOp = webview.invokeScriptAsync("eval", `
+            JSON.stringify(Array.from(document.getElementsByTagName('link'))
+                .filter(link => link.rel.includes('shortcut icon')) //icon will take apple-touch 
+                .map(link => link.href))
+           `);
+            asyncOp.oncomplete = e => {
+                var icons = JSON.parse(e.target.result);
+                var icon = icons[0];
+                if (!icon) {
+                    icon = new URL(webview.src).origin + "/favicon.ico";
+                }
+                resolve(icon);
+            };
+            asyncOp.start();
+        });
+
+    }
+
     function addPage(opt) {
         let src = opt.src;
         if (src) {
@@ -58,9 +78,12 @@
         view.addEventListener("MSWebViewDOMContentLoaded", e => {
             if (!pinned) {
                 nav.innerHTML = view.documentTitle;
-            }            
+            }
+            getfaviconUrl(view).then(faviconUrl => {
+                faviconUrl && (nav.dataset.favicon = faviconUrl);
+            });
         });
-
+ 
         nav.addEventListener("click", e => {
             setCurrentPage(index);
         });
@@ -73,7 +96,8 @@
             function onSaveFavor() {
                 AppManager.favorManager.addItem({
                     url: src,
-                    title:nav.innerText
+                    title: nav.innerText,
+                    icon:nav.dataset.favicon
                 });
             }
             function pageToWinRT(pageX, pageY) {
@@ -102,10 +126,7 @@
         }
         viewstacks.appendChild(view);
         navstacks.appendChild(nav);
-        setTimeout(() => {
-
-        }, 0);
-        
+                
         let page = {
             src,
             view,

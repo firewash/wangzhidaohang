@@ -56,6 +56,10 @@
             width: 48px;
             text-align: center;
         }
+         #scenarioControl .scenarioItem .scenarioItemIcon img {
+            width:16px;
+            height:16px;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +70,7 @@
             <span class="scenarioItemIcon">
                 <img data-win-bind="src: icon" />
             </span>
-            <span data-win-bind="innerText: title; dataset.url: url "></span>
+            <span data-win-bind="innerText: title; dataset.url: url; dataset.locked: locked "></span>
 </div>
     </div>
 

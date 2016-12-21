@@ -18,14 +18,17 @@
         localSettings.values['favorList'] = JSON.stringify(favorList);
     }
 
-    const favorList = readDataFromStore() || [
-       { url: "components/webviewx.html", title: "首页", icon: "http://g.alicdn.com/browser/uc123_no/0.2.90/index/img/favicon_uc123_yellow.png", keywords: "首页 主页 第一页 " },
-       { url: "http://haha.mx", title: "哈哈", icon: "http://www.haha.mx/favicon.ico", keywords: "哈哈 呵呵" },
-       { url: "http://uwptest.com/2.html", title: "2.html", icon: "", keywords: "" },  //hosts for 127.0.0.1
-       { url: "http://www.baidu.com", title: "省钱", icon: "" },
-       { url: "components/help.html", title: "帮助", icon: EMPTY_FAVICON },
-    ];
+    function getDefaultData(){
+        return [
+               { url: "components/webviewx.html", title: "首页", icon: "http://g.alicdn.com/browser/uc123_no/0.2.90/index/img/favicon_uc123_yellow.png", keywords: "首页 主页 第一页 ",locked:true },
+               { url: "http://haha.mx", title: "哈哈", icon: "http://www.haha.mx/favicon.ico", keywords: "哈哈 呵呵" },
+               { url: "http://uwptest.com/2.html", title: "2.html", icon: "", keywords: "" },  //hosts for 127.0.0.1
+               { url: "http://www.baidu.com", title: "省钱", icon: "" },
+               { url: "components/help.html", title: "帮助", icon: EMPTY_FAVICON },
+        ];
+    }
 
+    let favorList = readDataFromStore() || getDefaultData();
 
     var bindingList = new WinJS.Binding.List(favorList);
 
@@ -35,11 +38,11 @@
         bindingList.push(json);
         favorList.push(json);
         saveDataToStore();
-        //updateFavorIcon(json); // todo
+        // fetchFavorIcon(json); // todo
         return json;
     }
     function removeItemByIndex(index) {
-        if (index > -1) {
+        if (index > -1 && !favorList[index].locked) {
             bindingList.splice(index, 1);
             favorList.splice(index, 1);
             saveDataToStore();
@@ -56,14 +59,19 @@
         removeItemByIndex(index);
     }
     
-    function updateItem(index,json) { //todo
+    function updateItem(index, part) { //todo
         if (!json.url) return null;
         json.icon = json.icon || EMPTY_FAVICON;
         bindingList.push(json);
-        favorList.push(json);
+        favorList.push(json); //todo
         saveDataToStore();
-        //updateFavorIcon(json); // todo
         return json;
+    }
+
+    function reset() {
+        favorList = getDefaultData();
+        bindingList.bind(favorList);
+        saveDataToStore();
     }
     
     //先简单获取页面内的href字符串。todo：网站根目录放置；相对地址；缓存
@@ -87,18 +95,19 @@
         });
     }
     
-    function updateFavorIcon(json){
-    		getFavoriconByPageUrl(json.URL).then(function(iconUrl){
-    				if(iconUrl){
-    					json.icon = iconUrl;
-    					updateItem(json)
-    				}
-    			});
-    	}
+    //function fetchFavorIcon(json) {
+    //	getFavoriconByPageUrl(json.url).then(function(iconUrl){
+    //			if(iconUrl){
+    //				json.icon = iconUrl;
+    //				updateItem(json)
+    //			}
+    //		});
+    //}
 
     var favorManager = {
         addItem,
         removeItem,
+        reset,
         bindingData: bindingList
     };
 
