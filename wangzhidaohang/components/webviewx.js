@@ -1,4 +1,4 @@
-﻿let PageManager = (function () {
+﻿(function () {
     let viewtacks = null;
     let navstacks = null;
     let pages = [];
@@ -13,7 +13,7 @@
         return new WinJS.Promise(function (resolve) {
             let asyncOp = webview.invokeScriptAsync("eval", `
             JSON.stringify(Array.from(document.getElementsByTagName('link'))
-                .filter(link => link.rel.includes('shortcut icon')) //icon will take apple-touch 
+                .filter(link => link.rel.includes('shortcut icon')) //icon will take apple-touch
                 .map(link => link.href))
            `);
             asyncOp.oncomplete = e => {
@@ -54,7 +54,7 @@
         let view = opt.view;
         let nav = opt.nav;
         let pinned = !!opt.pinned;
-        let index = autoIdPointer++;
+        let id = autoIdPointer++;
         if (!view || !nav) {
             view = document.createElement("x-ms-webview");
             view.className = "coming";
@@ -64,18 +64,18 @@
 
         view.addEventListener("MSWebViewNewWindowRequested", e => {
             console.log("NewWindowRequested");
-            this.addPage({ src: e.uri });           
+            this.addPage({ src: e.uri });
             e.preventDefault();
         });
-        
+
         view.addEventListener("MSWebViewNavigationStarting", e => {
             if (!pinned) {
-                setCurrentPage(index);
+                setCurrentPage(id);
             }
             view.classList.remove("coming");
             viewstacks.classList.add("pageloading");
         });
-        
+
         view.addEventListener("MSWebViewDOMContentLoaded", e => {
             if (!pinned) {
                 nav.innerHTML = view.documentTitle;
@@ -85,9 +85,9 @@
                 faviconUrl && (nav.dataset.favicon = faviconUrl);
             });
         });
- 
+
         nav.addEventListener("click", e => {
-            setCurrentPage(index);
+            setCurrentPage(id);
         });
 
         nav.addEventListener("contextmenu", e => {
@@ -99,7 +99,7 @@
                 AppManager.favorManager.addItem({
                     url: src,
                     title: nav.innerText,
-                    icon:nav.dataset.favicon
+                    icon: nav.dataset.favicon
                 });
             }
             function pageToWinRT(pageX, pageY) {
@@ -128,15 +128,15 @@
         }
         viewstacks.appendChild(view);
         navstacks.appendChild(nav);
-                
+
         let page = {
             src,
             view,
             nav,
-            index
+            id
         };
         pages.push(page);
-        if (!currentPage) setCurrentPage(index);
+        if (!currentPage) setCurrentPage(id);
         return page;
     }
 
@@ -148,52 +148,70 @@
             page.view.remove();
             page.nav.remove();
         }
+        return this;
     }
 
     //移出一个tab
-    function closePage(index) {
+    function closePage(id) {
         for (var i = 0, len = pages.length; i < len; i++) {
-            if (pages[i].index === index) {
+            if (pages[i].id === id) {
                 var page = pages[i];
                 if (page === currentPage) {
-                    var next = pages[i - 1] || pages[i+1];
-                    next && setCurrentPage(next.index);
-                }                
+                    var next = pages[i - 1] || pages[i + 1];
+                    next && setCurrentPage(next.id);
+                }
                 page.view.remove();
                 page.nav.remove();
                 pages.splice(i, 1)[0];
                 break;
             }
-            
-        }  
+
+        }
+        return this;
     }
 
-    function setCurrentPage(index) {
+    function closeAll() {
+        closePagesBeginWith(0);
+        closePage(0);
+        currentPage = null;
+        return this;
+    }
+
+    function setCurrentPage(id) {
         if (currentPage) {
             currentPage.view.classList.remove("current");
             currentPage.nav.classList.remove("current");
         }
-        
+
         for (var i = 0, len = pages.length; i < len; i++) {
-            if (pages[i].index === index) {
+            if (pages[i].id === id) {
                 currentPage = pages[i];
                 currentPage.view.className = "current";
                 currentPage.nav.className = "current";
+
+                closePagesBeginWith(i + 1); // 有这个想法来节省内存
                 break;
             }
         }
-        closePagesBeginWith(index + 1); // 有这个想法来节省内存
+        
+        return this;
     }
 
-    return {
+    var PageManager = {
         init,
-        addPage
+        addPage,
+        closeAll
     };
-})();
+    WinJS.Namespace.define("AppManager", {
+        PageManager
+    });
+}) ();
 
-window.onload = function () {
+
+(function () {
     WinJS.UI.Pages.define("/components/webviewx.html", {
         ready: function (element, options) {
+            var PageManager = AppManager.PageManager;
             PageManager.init({
                 host: document.getElementById("MyWebviewx")
             });
@@ -202,10 +220,6 @@ window.onload = function () {
                 nav: document.getElementById("defaultNav"),// optional
                 pinned: true
             });
-
-          
-
-            
         }
     });
-};
+})();

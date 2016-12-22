@@ -179,4 +179,16 @@ button.splitViewButton {
     left:50%;
     top:50%;
     background:transparent url(../images/loading.svg) no-repeat center center;
+    animation:loading 1s infinite;
+    pointer-events:none;
+}
+
+@keyframes loading {
+    0% {
+        transform:rotateZ(0);
+    }
+    100% {
+        transform:rotateZ(360deg);
+    }
+
 }

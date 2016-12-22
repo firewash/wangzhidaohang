@@ -70,6 +70,7 @@
     <Content Include="components\splitmenu_header.html" />
     <Content Include="components\splitmenu_select.html" />
     <Content Include="components\webviewx.html" />
+    <Content Include="components\webviewx.js" />
     <Content Include="images\loading.svg" />
     <Content Include="images\logo.png" />
     <Content Include="images\more.svg" />
@@ -87,7 +88,7 @@
     <Content Include="js\main.js" />
     <Content Include="css\default.css" />
     <Content Include="js\splitmenu.js" />
-    <Content Include="js\homeview.js" />
+    <Content Include="js\page_manager.js" />
     <Content Include="lib\winjs-4.0.1\js\base.js" />
     <Content Include="lib\winjs-4.0.1\js\ui.js" />
     <Content Include="lib\winjs-4.0.1\css\ui-light.css" />
