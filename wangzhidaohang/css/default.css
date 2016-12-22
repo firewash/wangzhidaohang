@@ -131,6 +131,7 @@ button.splitViewButton {
     #footer{
         display:inline-block;
         line-height:48px;
+        overflow:hidden;
     }
 
 .win-splitview-pane-closed #header,
@@ -151,12 +152,31 @@ button.splitViewButton {
 }
 
 .helpIcon::before {
-    content: "\E11B";
+    content: "\E115";
+    vertical-align:middle;
 }
 .helpIcon {
+    float:left;
+    line-height:48px;
     font-family: "Symbols";
     font-size: 28px;
-    color: #5729c1;
+    color: #FFF;
     width:30px;
     height:30px;
+}
+
+/** page loading style */
+.pageloading {
+    position:relative;
+}
+.pageloading::after {
+    content:"";
+    display:block;
+    width:148px;
+    height:148px;
+    margin:-74px 0 0 -74px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    background:transparent url(../images/loading.svg) no-repeat center center;
 }

@@ -71,14 +71,16 @@
         view.addEventListener("MSWebViewNavigationStarting", e => {
             if (!pinned) {
                 setCurrentPage(index);
-                view.classList.remove("coming");
             }
+            view.classList.remove("coming");
+            viewstacks.classList.add("pageloading");
         });
         
         view.addEventListener("MSWebViewDOMContentLoaded", e => {
             if (!pinned) {
                 nav.innerHTML = view.documentTitle;
             }
+            viewstacks.classList.remove("pageloading");
             getfaviconUrl(view).then(faviconUrl => {
                 faviconUrl && (nav.dataset.favicon = faviconUrl);
             });

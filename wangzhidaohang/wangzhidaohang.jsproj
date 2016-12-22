@@ -65,10 +65,12 @@
     </AppxManifest>
     <Content Include="components\customTitleBar.html" />
     <Content Include="components\help.html" />
+    <Content Include="components\help.js" />
     <Content Include="components\splitmenu_footer.html" />
     <Content Include="components\splitmenu_header.html" />
     <Content Include="components\splitmenu_select.html" />
     <Content Include="components\webviewx.html" />
+    <Content Include="images\loading.svg" />
     <Content Include="images\logo.png" />
     <Content Include="images\more.svg" />
     <Content Include="index.html" />
@@ -79,7 +81,7 @@
     <Content Include="images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
-    <Content Include="js\app_setting.js" />
+    <Content Include="js\config.js" />
     <Content Include="js\favoricon.js" />
     <Content Include="js\favor_manager.js" />
     <Content Include="js\main.js" />
