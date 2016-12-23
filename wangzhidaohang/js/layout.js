@@ -1,6 +1,8 @@
 ﻿"use strict";
 
 (function () {
+	var nav = WinJS.Navigation;
+	var customTitleBarPromise = WinJS.Promise.wrap();
     
 	WinJS.Namespace.define("AppDatas", {
 	    appTitle: "UC123Plus",
@@ -10,8 +12,6 @@
 	    paneOpenInitially: true
 	});
     
-	var customTitleBarPromise = WinJS.Promise.wrap();
-
 	function addCustomTitleBar() {
 	    // Wait for the previous operation to complete before starting a new one.
 	    customTitleBarPromise = customTitleBarPromise.then(function () {
@@ -52,9 +52,9 @@
 	            evt.detail.itemPromise.then(function (item) {
 	                that._selectedIndex = item.index;
 	                var newUrl = item.data.url;
-	                if (currentScenarioUrl !== newUrl) {
+	                if (nav.location !== newUrl) {
 	                    WinJS.Navigation.navigate(newUrl);
-	                    var splitView = document.querySelector("#splitMenuElement");
+	                    // var splitView = document.querySelector("#splitMenuElement");
 	                    // splitView && splitView.winControl.closePane();
 	                }
 	            });
@@ -160,12 +160,6 @@
 	}
 
     // init navigating 
-    var currentScenarioUrl = null;
-
-    WinJS.Navigation.addEventListener("navigating", function (evt) {
-        currentScenarioUrl = evt.detail.location;
-    });
-
 	function navigating(eventObject) {
 	    var url = eventObject.detail.location;
 	    var host = document.getElementById("splitContent");
@@ -204,11 +198,11 @@
 	    }
 	    
 	}
-	var nav = WinJS.Navigation;
 	nav.addEventListener("navigating", navigating);
 
-	var splitmenu = window.splitmenu = {
+	var topMenu = {
         init
 	};
-	return splitmenu;
+
+    WinJS.Namespace.define("topMenu",topMenu);
 })();

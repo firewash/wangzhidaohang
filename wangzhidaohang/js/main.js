@@ -40,7 +40,7 @@
 			//TODO: 应用已激活但未运行。请在此处执行常规启动初始化。
 			document.addEventListener("visibilitychange", onVisibilityChanged);
 			args.setPromise(WinJS.UI.processAll());	// wangle help		 
-			splitmenu.init();
+			topMenu.init();
 			vcdInit();
 			setToolbarExtend();
 		}
