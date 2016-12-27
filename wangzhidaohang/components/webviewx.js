@@ -34,13 +34,7 @@
         if (src) {
             switch (Config.NewWindowOpenModeInHomePage) {
                 case Config.NewWindowOpenModes.inDefaultBrowser:
-                    var uri = new Windows.Foundation.Uri("http://www.baidu.com");
-                    var options = new Windows.System.LauncherOptions();
-                    Windows.System.Launcher.launchUriAsync(uri).then(function (res) {
-                        //console.log("使用默认程序打开成功")
-                    }, function (err) {
-                        //console.log("失败")
-                    });
+                    Utils.openInBrowser({url: src});
                     return null;
                 case Config.NewWindowOpenModes.inThisAppNewInstance:
                     window.open(src);
@@ -52,6 +46,7 @@
         }
 
         let view = opt.view;
+        // if (view) src = view.src;
         let nav = opt.nav;
         let pinned = !!opt.pinned;
         let id = autoIdPointer++;
@@ -91,6 +86,7 @@
         });
 
         nav.addEventListener("contextmenu", e => {
+            if (!src) return;
             //if(!opt.pinned) closePage(index);
             //var menu = document.querySelector('#navMenu');
             // menu.winControl.show(nav, 'right', 'center');     
@@ -102,6 +98,9 @@
                     icon: nav.dataset.favicon
                 });
             }
+            function onOpenInBrower() {
+                Utils.openInBrowser({ url: src });
+            }
             function pageToWinRT(pageX, pageY) {
                 var zoomFactor = document.documentElement.msContentZoomFactor;
                 return {
@@ -111,6 +110,7 @@
             }
             var menu = new Windows.UI.Popups.PopupMenu();
             menu.commands.append(new Windows.UI.Popups.UICommand("添加收藏", onSaveFavor));
+            menu.commands.append(new Windows.UI.Popups.UICommand("在浏览器中打开", onOpenInBrower));
             // We don't want to obscure content, so pass in the position representing the selection area.
             // We registered command callbacks; no need to handle the menu completion event
             menu.showAsync(pageToWinRT(e.pageX, e.pageY)).then(function (invokedCommand) {
@@ -206,20 +206,3 @@
         PageManager
     });
 }) ();
-
-
-(function () {
-    WinJS.UI.Pages.define("/components/webviewx.html", {
-        ready: function (element, options) {
-            var PageManager = AppManager.PageManager;
-            PageManager.init({
-                host: document.getElementById("MyWebviewx")
-            });
-            PageManager.addPage({
-                view: document.getElementById("defaultView"), // optional
-                nav: document.getElementById("defaultNav"),// optional
-                pinned: true
-            });
-        }
-    });
-})();

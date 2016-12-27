@@ -75,6 +75,9 @@
 	                    title: nav.innerText
 	                });
 	            }
+                function onOpenInBrower(){
+                    Utils.openInBrowser({url: url});
+                }
 	            function pageToWinRT(pageX, pageY) {
 	                var zoomFactor = document.documentElement.msContentZoomFactor;
 	                return {
@@ -84,6 +87,7 @@
 	            }
 	            var menu = new Windows.UI.Popups.PopupMenu();
 	            menu.commands.append(new Windows.UI.Popups.UICommand("移除收藏", onRemoveFavor));
+	            menu.commands.append(new Windows.UI.Popups.UICommand("在浏览器中打开", onOpenInBrower));
 	            // We don't want to obscure content, so pass in the position representing the selection area.
 	            // We registered command callbacks; no need to handle the menu completion event
 	            menu.showAsync(pageToWinRT(e.pageX, e.pageY)).then(function (invokedCommand) {
@@ -163,6 +167,16 @@
 	function navigating(eventObject) {
 	    var url = eventObject.detail.location;
 	    var host = document.getElementById("splitContent");
+	    // if (!(/https?:\/\//.test(url) && /https?:\/\//.test(nav.location))) {
+        if(true){
+	        if (host.winControl) {
+	            host.winControl.unload && host.winControl.unload();
+	            host.winControl.dispose && host.winControl.dispose();
+	        }
+	        WinJS.Utilities.disposeSubTree(host);
+	        WinJS.Utilities.empty(host);
+	        WinJS.log && WinJS.log("", "", "status");
+	    }
 	    if (/https?:\/\//.test(url)) {
 	        //host.innerHTML = `<x-ms-webview id="defaultView" src="${url}" style="width:100%;height:100%;"></x-ms-webview>`;
 	        
@@ -174,15 +188,7 @@
                 });
 	        p.done();
 	        eventObject.detail.setPromise(p);
-	    } else {
-	        // Call unload and dispose methods on current scenario, if any exist
-	        if(host.winControl) {
-	            host.winControl.unload && host.winControl.unload();
-	            host.winControl.dispose && host.winControl.dispose();
-	        }
-	        WinJS.Utilities.disposeSubTree(host);
-	        WinJS.Utilities.empty(host);
-	        WinJS.log && WinJS.log("", "", "status");
+	    } else {	        
             var p = WinJS.UI.Pages.render(url, host, eventObject.detail.state).
                 then(function (ele) {
                     //var navHistory = nav.history;

@@ -43,6 +43,20 @@
 			topMenu.init();
 			vcdInit();
 			setToolbarExtend();
+
+			WinJS.UI.Pages.define("/components/webviewx.html", {
+			    ready: function (element, options) {
+			        var PageManager = AppManager.PageManager;
+			        PageManager.init({
+			            host: document.getElementById("MyWebviewx")
+			        });
+			        PageManager.addPage({
+			            view: document.getElementById("defaultView"), // optional
+			            nav: document.getElementById("defaultNav"),// optional
+			            pinned: true
+			        });
+			    }
+			});
 		}
 
 		isFirstActivation = false;
@@ -58,7 +72,10 @@
 		//你可以使用 WinJS.Application.sessionState 对象，该对象在挂起中会自动保存和还原。
 		//如果需要在应用程序被挂起之前完成异步操作，请调用 args.setPromise()。
 	};
- 
+	app.onerror = function (args) {
+	    debugger;
+        
+	}
 	app.start();
 })();
 

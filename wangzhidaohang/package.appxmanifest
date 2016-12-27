@@ -16,7 +16,8 @@
   <Applications>
     <Application Id="App" StartPage="index.html">
       <uap:VisualElements DisplayName="网址导航" Description="UC123.com专版APP。" BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png">
+        <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png" ShortName="UC123">
+          <uap:TileUpdate Recurrence="halfHour" UriTemplate="http://100.85.133.144/tile-auto-update.xml" />
         </uap:DefaultTile>
         <uap:SplashScreen Image="images\splashscreen.png" />
       </uap:VisualElements>
