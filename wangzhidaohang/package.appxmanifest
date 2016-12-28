@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="7b8d96cd-f7e3-42b9-8f2c-217adbb9f70e" Version="1.0.1.0" Publisher="CN=admin" />
+  <Identity Name="7b8d96cd-f7e3-42b9-8f2c-217adbb9f70e" Version="1.0.2.0" Publisher="CN=admin" />
   <mp:PhoneIdentity PhoneProductId="7b8d96cd-f7e3-42b9-8f2c-217adbb9f70e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>UC123Plus</DisplayName>
@@ -16,8 +16,12 @@
   <Applications>
     <Application Id="App" StartPage="index.html">
       <uap:VisualElements DisplayName="网址导航" Description="UC123.com专版APP。" BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png" ShortName="UC123">
+        <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="images\BadgeLogo.png" />
+        <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png" ShortName="UC123" Square310x310Logo="images\Square310x310Logo.png" Square71x71Logo="images\Square71x71Logo.png">
           <uap:TileUpdate Recurrence="halfHour" UriTemplate="http://100.85.133.144/tile-auto-update.xml" />
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="images\splashscreen.png" />
       </uap:VisualElements>
