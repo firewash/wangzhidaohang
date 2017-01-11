@@ -43,6 +43,7 @@
 			topMenu.init();
 			vcdInit();
 			setToolbarExtend();
+			dynamicTiles();
 
 			WinJS.UI.Pages.define("/components/webviewx.html", {
 			    ready: function (element, options) {
@@ -134,3 +135,23 @@ function setToolbarExtend() {return
     });
     customTitleBarPromise.done();
 }
+
+function dynamicTiles() {return;
+    var Notifications = Windows.UI.Notifications;
+    var tpl = Notifications.TileTemplateType.tileSquare310x310Text01;
+    var tileXML = Notifications.TileUpdateManager.getTemplateContent(tpl);
+    // 填写 tileXML...
+    var tileTextAttributes = tileXML.getElementsByTagName("text");
+    tileTextAttributes[0].appendChild(tileXML.createTextNode("Hello World! My very own tile notification"));
+
+    var tileImageAttributes = tileXML.getElementsByTagName("image");
+    tileImageAttributes[0].setAttribute("src", "ms-appx:///images/Square71x71Logo.png");
+    tileImageAttributes[0].setAttribute("alt", "red graphic");
+    //end 填写
+    var tileNotification = Notifications.TileNotification(tileXML);
+    var currentTime = new Date();
+    tileNotification.expirationTime = new Date(currentTime.getTime() + 600 * 1000);
+    Notifications.TileUpdateManager.createTileUpdaterForApplication().update(tileNotification);
+    
+}
+

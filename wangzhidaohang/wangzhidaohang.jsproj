@@ -42,6 +42,9 @@
     <ProjectGuid>7b8d96cd-f7e3-42b9-8f2c-217adbb9f70e</ProjectGuid>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0'">
     <VisualStudioVersion>14.0</VisualStudioVersion>
@@ -50,14 +53,14 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).props" />
   <PropertyGroup>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>$(VersionNumberMajor).$(VersionNumberMinor)</MinimumVisualStudioVersion>
     <DefaultLanguage>zh-CN</DefaultLanguage>
-    <PackageCertificateKeyFile>wangzhidaohang_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>wangzhidaohang_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Never</AppxBundle>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>A9F6037E5422B0D94A312CB3A8325F021479AE33</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
@@ -104,6 +107,8 @@
     <Content Include="lib\winjs-4.0.1\css\ui-light.css" />
     <Content Include="lib\winjs-4.0.1\css\ui-dark.css" />
     <Content Include="lib\winjs-4.0.1\fonts\Symbols.ttf" />
+    <None Include="wangzhidaohang_StoreKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="page.html" />
     <Content Include="VoiceCommandDefinition.xml" />
     <None Include="wangzhidaohang_TemporaryKey.pfx" />
