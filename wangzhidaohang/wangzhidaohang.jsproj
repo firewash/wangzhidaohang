@@ -77,6 +77,7 @@
     <Content Include="images\BadgeLogo.png" />
     <Content Include="images\BadgeLogo.scale-100.png" />
     <Content Include="images\BadgeLogo.scale-125.png" />
+    <Content Include="images\help4contextmenu.jpg" />
     <Content Include="images\loading.svg" />
     <Content Include="images\logo.png" />
     <Content Include="images\more.svg" />

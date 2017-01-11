@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="UCMobileLimited.UC123UWP" Version="1.1.15.0" Publisher="CN=62B00507-028F-417B-AA78-1B0C758F460D" />
+  <Identity Name="UCMobileLimited.UC123UWP" Version="1.1.16.0" Publisher="CN=62B00507-028F-417B-AA78-1B0C758F460D" />
   <mp:PhoneIdentity PhoneProductId="7b8d96cd-f7e3-42b9-8f2c-217adbb9f70e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>UC123 UWP专版</DisplayName>
