@@ -29,38 +29,42 @@
 		}
 
 		if (!args.detail.prelaunchActivated) {
-			//TODO: 如果 prelaunchActivated 为 true，则意味着应用作为一种优化在后台预启动。
-			//在这种情况下，它会在那之后不久挂起。
-			//启动时发生任何长时间运行的操作(例如昂贵的网络或磁盘 I/O)或对用户状态进行更改
-			//应在此处完成(以避免在预启动情况下执行这些操作)。
-			//或者，可在恢复或 visibilitychanged 处理程序中完成此工作。
+		    //TODO: 如果 prelaunchActivated 为 true，则意味着应用作为一种优化在后台预启动。
+		    //在这种情况下，它会在那之后不久挂起。
+		    //启动时发生任何长时间运行的操作(例如昂贵的网络或磁盘 I/O)或对用户状态进行更改
+		    //应在此处完成(以避免在预启动情况下执行这些操作)。
+		    //或者，可在恢复或 visibilitychanged 处理程序中完成此工作。
+		    WinJS.log && WinJS.log("不是预启动");
+		    appInitOnce();
+		} else {
+		    WinJS.log && WinJS.log("预启动");
+		}
+          
+		function appInitOnce(){
+		    if(!isFirstActivation) return;
+		    document.addEventListener("visibilitychange", onVisibilityChanged);
+		    args.setPromise(WinJS.UI.processAll());	// wangle help		 
+		    topMenu.init();
+		    vcdInit();
+		    setToolbarExtend();
+		    dynamicTiles();
+
+		    WinJS.UI.Pages.define("/components/webviewx.html", {
+		        ready: function (element, options) {
+		            var PageManager = AppManager.PageManager;
+		            PageManager.init({
+		                host: document.getElementById("MyWebviewx")
+		            });
+		            PageManager.addPage({
+		                view: document.getElementById("defaultView"), // optional
+		                nav: document.getElementById("defaultNav"),// optional
+		                pinned: true
+		            });
+		        }
+		    });
+		    isFirstActivation = false;
 		}
 
-		if (isFirstActivation) {
-			//TODO: 应用已激活但未运行。请在此处执行常规启动初始化。
-			document.addEventListener("visibilitychange", onVisibilityChanged);
-			args.setPromise(WinJS.UI.processAll());	// wangle help		 
-			topMenu.init();
-			vcdInit();
-			setToolbarExtend();
-			dynamicTiles();
-
-			WinJS.UI.Pages.define("/components/webviewx.html", {
-			    ready: function (element, options) {
-			        var PageManager = AppManager.PageManager;
-			        PageManager.init({
-			            host: document.getElementById("MyWebviewx")
-			        });
-			        PageManager.addPage({
-			            view: document.getElementById("defaultView"), // optional
-			            nav: document.getElementById("defaultNav"),// optional
-			            pinned: true
-			        });
-			    }
-			});
-		}
-
-		isFirstActivation = false;
 	};
 
 	function onVisibilityChanged(args) {
@@ -77,6 +81,7 @@
 	    debugger;
         
 	}
+
 	app.start();
 })();
 
