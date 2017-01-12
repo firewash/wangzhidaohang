@@ -20,7 +20,7 @@
 
     function getDefaultData(){
         return [
-               { url: "components/webviewx.html", title: "首页", icon: "http://g.alicdn.com/browser/uc123_no/0.2.90/index/img/favicon_uc123_yellow.png", keywords: "首页 主页 第一页 ",locked:true },
+               { url: "http://www.uc123.com", title: "首页", icon: "http://g.alicdn.com/browser/uc123_no/0.2.90/index/img/favicon_uc123_yellow.png", keywords: "首页 主页 第一页 ",locked:true },
                //{ url: "http://haha.mx", title: "哈哈", icon: "http://www.haha.mx/favicon.ico", keywords: "哈哈 呵呵" },
                //{ url: "http://uwptest.com/2.html", title: "2.html", icon: "", keywords: "" },  //hosts for 127.0.0.1
                { url: "https://alimarket.taobao.com/markets/browser/hongbao?from=uc123plus", title: "省钱", icon: "https://g.alicdn.com/mui/global/1.2.35/file/favicon.ico" },

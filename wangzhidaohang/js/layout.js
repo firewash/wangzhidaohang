@@ -5,7 +5,7 @@
 	var customTitleBarPromise = WinJS.Promise.wrap();
     
 	WinJS.Namespace.define("AppDatas", {
-	    appTitle: "UC123Plus",
+	    appTitle: "UC123",
 	    topmenus: AppManager.favorManager.bindingData,
 	    addCustomTitleBar: addCustomTitleBar,
 	    removeCustomTitleBar: removeCustomTitleBar,
@@ -182,7 +182,7 @@
 	        
 	        var p = WinJS.UI.Pages.render('components/webviewx.html', host, eventObject.detail.state).
                 then(function (ele) {
-                    AppManager.PageManager.closeAll().addPage({
+                    AppManager.PageManager.init().closeAll().addPage({
                         src: url
                     });
                 });

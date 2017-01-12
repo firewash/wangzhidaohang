@@ -49,19 +49,7 @@
 		    setToolbarExtend();
 		    dynamicTiles();
 
-		    WinJS.UI.Pages.define("/components/webviewx.html", {
-		        ready: function (element, options) {
-		            var PageManager = AppManager.PageManager;
-		            PageManager.init({
-		                host: document.getElementById("MyWebviewx")
-		            });
-		            PageManager.addPage({
-		                view: document.getElementById("defaultView"), // optional
-		                nav: document.getElementById("defaultNav"),// optional
-		                pinned: true
-		            });
-		        }
-		    });
+		    WinJS.Navigation.navigate('http://www.uc123.com');
 		    isFirstActivation = false;
 		}
 

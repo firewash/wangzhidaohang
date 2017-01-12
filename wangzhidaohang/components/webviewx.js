@@ -7,6 +7,7 @@
     function init(host) {
         viewstacks = document.getElementById("viewStacks");
         navstacks = document.getElementById("navStacks");
+        return this;
     }
 
     function getfaviconUrl(webview) {
@@ -59,13 +60,13 @@
 
         view.addEventListener("MSWebViewNewWindowRequested", e => {
             console.log("NewWindowRequested");
-            this.addPage({ src: e.uri });
+            this.addPage({ src: e.uri , active: true});
             e.preventDefault();
         });
 
         view.addEventListener("MSWebViewNavigationStarting", e => {
             if (!pinned) {
-                setCurrentPage(id);
+                // setCurrentPage(id);
             }
             view.classList.remove("coming");
             viewstacks.classList.add("pageloading");
@@ -74,6 +75,7 @@
         view.addEventListener("MSWebViewDOMContentLoaded", e => {
             if (!pinned) {
                 nav.innerHTML = view.documentTitle;
+                nav.title = view.documentTitle + "\n" + view.src;
             }
             viewstacks.classList.remove("pageloading");
             getfaviconUrl(view).then(faviconUrl => {
@@ -136,7 +138,7 @@
             id
         };
         pages.push(page);
-        if (!currentPage) setCurrentPage(id);
+        if (!currentPage || opt.active) setCurrentPage(id);
         return page;
     }
 
@@ -201,7 +203,8 @@
         init,
         addPage,
         closeAll
-    };
+        };
+
     WinJS.Namespace.define("AppManager", {
         PageManager
     });

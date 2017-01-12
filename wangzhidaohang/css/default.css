@@ -42,7 +42,7 @@ button.squareButton{
 
 .webviewx ul {
     display:inline-block;
-    height:28px;
+    height:auto;
     list-style:none;
     margin:0;
     padding:0;
@@ -82,7 +82,7 @@ button.squareButton{
     top:0;
     box-shadow:0px 0px 0px 0px #000;
     transition: left 0.5s linear, box-shadow 0.5s linear;
-    
+    display:none;
 }
 
     .view-stacks .current{
@@ -91,11 +91,13 @@ button.squareButton{
 .view-stacks x-ms-webview.coming{
     left:100%;
     box-shadow:0px 0px 10px 0px #000;
+    display:block;
 }
 
 .view-stacks .current{
    left:0;
    top:0;
+   display:block;
 }
 
 
@@ -152,13 +154,17 @@ button.splitViewButton {
 }
 
 .helpIcon::before {
+    font-family: "Segoe MDL2 Assets";
+    font-size: 28px;
+    color: #FFF;
     content: "\E115";
     vertical-align:middle;
+    display:block;
 }
 .helpIcon {
     float:left;
+    font-family: "Segoe MDL2 Assets";
     line-height:48px;
-    font-family: "Symbols";
     font-size: 28px;
     color: #FFF;
     width:30px;
