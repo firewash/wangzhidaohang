@@ -115,21 +115,26 @@
             menu.commands.append(new Windows.UI.Popups.UICommand("在浏览器中打开", onOpenInBrower));
             // We don't want to obscure content, so pass in the position representing the selection area.
             // We registered command callbacks; no need to handle the menu completion event
-            menu.showAsync(pageToWinRT(e.pageX, e.pageY)).then(function (invokedCommand) {
-                if (invokedCommand === null) {
-                    // The command is null if no command was invoked.
-                    WinJS.log && WinJS.log("Context menu dismissed", "sample", "status");
-                } else {
-                    WinJS.log && WinJS.log("!", e, invokedCommand);
-                }
-            });
+            try {
+                menu.showAsync(pageToWinRT(e.pageX, e.pageY)).then(function (invokedCommand) {
+                    if (invokedCommand === null) {
+                        // The command is null if no command was invoked.
+                        WinJS.log && WinJS.log("Context menu dismissed", "sample", "status");
+                    } else {
+                        WinJS.log && WinJS.log("!", e, invokedCommand);
+                    }
+                });
+            } catch (e) {
+                //
+            }
         });
+
+        viewstacks.appendChild(view);
+        navstacks.appendChild(nav);
 
         if (src) {
             view.navigate(src);
         }
-        viewstacks.appendChild(view);
-        navstacks.appendChild(nav);
 
         let page = {
             src,

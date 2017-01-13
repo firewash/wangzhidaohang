@@ -138,13 +138,11 @@
 	    splitView.onbeforeclose = function () { WinJS.Utilities.addClass(splitView.element, "hiding"); };
 	    splitView.onafterclose = function () { WinJS.Utilities.removeClass(splitView.element, "hiding"); };
 	    function handleResize() {
+	        splitView.closedDisplayMode = WinJS.UI.SplitView.ClosedDisplayMode.inline; //none
 	        if (window.innerWidth > 768) {
-	            splitView.closedDisplayMode = WinJS.UI.SplitView.ClosedDisplayMode.inline; //none
 	            splitView.openedDisplayMode = WinJS.UI.SplitView.OpenedDisplayMode.inline;
 	        } else {
-	            splitView.closedDisplayMode = WinJS.UI.SplitView.ClosedDisplayMode.none;
 	            splitView.openedDisplayMode = WinJS.UI.SplitView.OpenedDisplayMode.overlay;
-	            //splitView.closePane();
 	        }
 	    }
 	    window.addEventListener("resize", handleResize);
@@ -164,22 +162,29 @@
 	}
 
     // init navigating 
+	var lastURL = '';
 	function navigating(eventObject) {
 	    var url = eventObject.detail.location;
-	    var host = document.getElementById("splitContent");
-	    // if (!(/https?:\/\//.test(url) && /https?:\/\//.test(nav.location))) {
-        if(true){
-	        if (host.winControl) {
-	            host.winControl.unload && host.winControl.unload();
-	            host.winControl.dispose && host.winControl.dispose();
-	        }
-	        WinJS.Utilities.disposeSubTree(host);
-	        WinJS.Utilities.empty(host);
-	        WinJS.log && WinJS.log("", "", "status");
+	    if (url == lastURL) {
+	        return;
+	    } else {
+	        lastURL = url;
 	    }
+	    var host = document.getElementById("splitContent");
+        
+	    if (host.winControl) {
+	        host.winControl.unload && host.winControl.unload();
+	        host.winControl.dispose && host.winControl.dispose();
+	    }
+	    WinJS.Utilities.disposeSubTree(host);
+	    WinJS.Utilities.empty(host);
+	    WinJS.log && WinJS.log("1111111");
+	   
 	    if (/https?:\/\//.test(url)) {
 	        //host.innerHTML = `<x-ms-webview id="defaultView" src="${url}" style="width:100%;height:100%;"></x-ms-webview>`;
-	        
+	        if (document.getElementById('navMenu')) {
+	            throw new Error('clear unuseful');
+	        }
 	        var p = WinJS.UI.Pages.render('components/webviewx.html', host, eventObject.detail.state).
                 then(function (ele) {
                     AppManager.PageManager.init().closeAll().addPage({

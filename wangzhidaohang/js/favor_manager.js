@@ -15,7 +15,24 @@
 
     function saveDataToStore() {
         var localSettings = Windows.Storage.ApplicationData.current.localSettings;
-        localSettings.values['favorList'] = JSON.stringify(favorList);
+        var localFolder = Windows.Storage.ApplicationData.current.localFolder;
+        
+        try{
+            localSettings.values['favorList'] = JSON.stringify(favorList);
+            return true;
+        }catch(e){
+            //localSettings最多支持几百个字符，以后可以改成配置文件的方式
+            //https://msdn.microsoft.com/en-us/library/windows/apps/windows.storage.applicationdata.aspx
+            var notifications = Windows.UI.Notifications;
+            var manager = notifications.ToastNotificationManager;
+            var template = notifications.ToastTemplateType.toastText01;
+            var toastXml = manager.getTemplateContent(notifications.ToastTemplateType[template]);
+            var textNodes = toastXml.getElementsByTagName("text");
+            textNodes[0] && textNodes[0].appendChild(toastXml.createTextNode('不能添加更多收藏了，请先删除一些。'));
+            var toast = new Windows.UI.Notifications.ToastNotification(toastXml);
+            Windows.UI.Notifications.ToastNotificationManager.createToastNotifier().show(toast);
+        }
+        return false;
     }
 
     function getDefaultData(){
@@ -34,9 +51,10 @@
     function addItem(json) {
         if (!json.url) return null;
         json.icon = json.icon || EMPTY_FAVICON;
-        bindingList.push(json);
-        favorList.push(json);
-        saveDataToStore();
+        if (saveDataToStore()) {
+            bindingList.push(json);
+            favorList.push(json);
+        }
         // fetchFavorIcon(json); // todo
         return json;
     }
@@ -61,9 +79,10 @@
     function updateItem(index, part) { //todo
         if (!json.url) return null;
         json.icon = json.icon || EMPTY_FAVICON;
-        bindingList.push(json);
-        favorList.push(json); //todo
-        saveDataToStore();
+        if(saveDataToStore()){
+            bindingList.push(json);
+            favorList.push(json); //todo
+        }
         return json;
     }
 
